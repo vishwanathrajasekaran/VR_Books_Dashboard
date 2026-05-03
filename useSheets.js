@@ -9,7 +9,7 @@ import Papa from 'papaparse'
 // GID is the individual tab/sheet ID (visible in URL when you click a tab)
 // Books tab GID and Reading Log tab GID
 // ─────────────────────────────────────────────────────────────────────────────
-const SHEET_ID = import.meta.env.VITE_SHEET_ID || '2PACX-1vScH9_URR08xBSuYdjgv7AfrGtdOYMh3WzrTNisHHSN-NNm5_HLgpjUQZ8WKnsQRCXEeJQ1NSrqdiXe'
+const SHEET_ID = import.meta.env.VITE_SHEET_ID || '1rl1IFSIt48slacDaepTVtPRWCEX36Y8xj_ue8VakTsY'
 const BOOKS_GID = import.meta.env.VITE_BOOKS_GID || '0'
 const LOG_GID = import.meta.env.VITE_LOG_GID || '0'
 
