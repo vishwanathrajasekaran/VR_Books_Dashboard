@@ -10,8 +10,8 @@ import Papa from 'papaparse'
 // Books tab GID and Reading Log tab GID
 // ─────────────────────────────────────────────────────────────────────────────
 const SHEET_ID = import.meta.env.VITE_SHEET_ID || '1rl1IFSIt48slacDaepTVtPRWCEX36Y8xj_ue8VakTsY'
-const BOOKS_GID = import.meta.env.VITE_BOOKS_GID || '0'
-const LOG_GID = import.meta.env.VITE_LOG_GID || '0'
+const BOOKS_GID = import.meta.env.VITE_BOOKS_GID || '1071667017'
+const LOG_GID = import.meta.env.VITE_LOG_GID || '1046464747'
 
 function sheetUrl(gid) {
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`
