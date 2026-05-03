@@ -9,12 +9,12 @@ import Papa from 'papaparse'
 // GID is the individual tab/sheet ID (visible in URL when you click a tab)
 // Books tab GID and Reading Log tab GID
 // ─────────────────────────────────────────────────────────────────────────────
-const SHEET_ID = import.meta.env.VITE_SHEET_ID || '1rl1IFSIt48slacDaepTVtPRWCEX36Y8xj_ue8VakTsY'
+const PUBLISHED_KEY = '2PACX-1vScH9_URR08xBSuYdjgv7AfrGtdOYMh3WzrTNisHHSN-NNm5_HLgpjUQZ8WKnsQRCXEeJQ1NSrqdiXe'
 const BOOKS_GID = import.meta.env.VITE_BOOKS_GID || '1071667017'
 const LOG_GID = import.meta.env.VITE_LOG_GID || '1046464747'
 
 function sheetUrl(gid) {
-  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`
+  return `https://docs.google.com/spreadsheets/d/e/${PUBLISHED_KEY}/pub?output=csv&gid=${gid}`
 }
 
 function parseDate(val) {
