@@ -41,14 +41,21 @@ export default function ReadingLog({ log }) {
   ), [log])
 
   // Streak — walks back from today, skips today if not yet read
-  const streak = useMemo(() => {
+  // Returns { count, startKey, endKey }
+  const streakInfo = useMemo(() => {
     const today = new Date()
-    let count = 0
-    for (let i = 0; i < 365; i++) {
+    let count   = 0
+    let endKey  = null
+    let startKey= null
+
+    for (let i = 0; i < 800; i++) {
       const d = new Date(today)
       d.setDate(today.getDate() - i)
       const key = keyFromDate(d)
+
       if (readDayKeys.has(key)) {
+        if (endKey === null) endKey = key  // first read day going back = streak end
+        startKey = key                      // keep updating — last one is streak start
         count++
       } else if (i === 0) {
         continue // haven't read today yet — check yesterday
@@ -56,8 +63,17 @@ export default function ReadingLog({ log }) {
         break
       }
     }
-    return count
+    return { count, startKey, endKey }
   }, [readDayKeys])
+
+  const { count: streak, startKey: streakStart, endKey: streakEnd } = streakInfo
+
+  // Format YYYY-MM-DD → "25 Aug 2025"
+  function formatKey(key) {
+    if (!key) return ''
+    const d = new Date(key + 'T00:00:00')
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+  }
 
   // Filter by search, then sort newest first
   const filtered = useMemo(() => {
@@ -94,6 +110,25 @@ export default function ReadingLog({ log }) {
             {streak} day{streak !== 1 ? 's' : ''}
           </div>
           <div style={{ fontSize: 12, color: 'var(--text2)', marginTop: 4 }}>Current reading streak</div>
+          {streakStart && streakEnd && (
+            <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+              <span style={{
+                fontSize: 12, fontWeight: 500,
+                background: 'var(--bg3)', border: '1px solid var(--border)',
+                borderRadius: 6, padding: '3px 9px', color: 'var(--text2)',
+              }}>
+                {formatKey(streakStart)}
+              </span>
+              <span style={{ color: 'var(--accent)', fontWeight: 700, fontSize: 14 }}>→</span>
+              <span style={{
+                fontSize: 12, fontWeight: 600,
+                background: 'rgba(232,168,56,0.1)', border: '1px solid rgba(232,168,56,0.3)',
+                borderRadius: 6, padding: '3px 9px', color: 'var(--accent)',
+              }}>
+                {formatKey(streakEnd)}
+              </span>
+            </div>
+          )}
         </div>
 
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 28 }}>
