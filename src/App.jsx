@@ -377,6 +377,7 @@ export default function App() {
       {showLogForm && (
         <LogForm
           books={books}
+          log={log}
           onClose={() => setShowLogForm(false)}
           onSuccess={handleLogSuccess}
         />
