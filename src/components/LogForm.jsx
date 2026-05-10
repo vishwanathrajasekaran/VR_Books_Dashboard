@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react'
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw3MoeWVek6x_5QiqskmBbXRGT5LuWDZzDbd9fBRAJRMgWSsfROIfGzJlV17YHEqOD/exec'
-const CORRECT_PIN     = '191989'
+const CORRECT_PIN = import.meta.env.VITE_APP_PIN
 const PIN_LENGTH      = 6
 
 function todayFormatted() {
