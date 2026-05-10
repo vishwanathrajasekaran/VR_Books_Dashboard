@@ -203,14 +203,38 @@ function LogFormInner({ books, log, onClose, onSuccess }) {
     ...books.filter(b => b.status !== 'Reading'),
   ], [books])
 
+  // Parse "3-MAY-26", "03 May 2026" etc → comparable YYYY-MM-DD string
+  function toSortableKey(dateStr) {
+    if (!dateStr) return ''
+    const s = dateStr.trim()
+
+    // "3-MAY-26" or "03-MAY-26"
+    const m1 = s.match(/^(\d{1,2})-([A-Za-z]{3})-(\d{2})$/)
+    if (m1) {
+      const M = {JAN:1,FEB:2,MAR:3,APR:4,MAY:5,JUN:6,JUL:7,AUG:8,SEP:9,OCT:10,NOV:11,DEC:12}
+      const mon = M[m1[2].toUpperCase()]
+      if (mon) return `${2000+parseInt(m1[3])}-${String(mon).padStart(2,'0')}-${m1[1].padStart(2,'0')}`
+    }
+
+    // "03 May 2026"
+    const m2 = s.match(/^(\d{1,2})\s+([A-Za-z]{3})\s+(\d{4})$/)
+    if (m2) {
+      const M = {Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12}
+      const mon = M[m2[2]]
+      if (mon) return `${m2[3]}-${String(mon).padStart(2,'0')}-${m2[1].padStart(2,'0')}`
+    }
+
+    // Fallback
+    const d = new Date(s)
+    if (!isNaN(d)) return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
+    return s
+  }
+
   // Get last bookmark for a given book title from log
   function getLastBookmark(title) {
     const entries = log
       .filter(l => l.book === title && l.bookmark > 0)
-      .sort((a, b) => {
-        // sort by date descending — use dateStr lexicographically
-        return (b.dateStr || '').localeCompare(a.dateStr || '')
-      })
+      .sort((a, b) => toSortableKey(b.dateStr).localeCompare(toSortableKey(a.dateStr)))
     return entries.length > 0 ? entries[0].bookmark : null
   }
 
