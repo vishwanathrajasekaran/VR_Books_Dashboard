@@ -8,13 +8,13 @@ import ReadingLog from './components/ReadingLog'
 import LogForm    from './components/LogForm'
 
 const TABS = [
-  { id: 'All',           label: 'All',   icon: '📚', status: null },
+  { id: 'All',           label: 'All',     icon: '📚', status: null },
   { id: 'Reading',       label: 'Reading', icon: '📖', status: 'Reading' },
-  { id: 'Completed',     label: 'Done',  icon: '✅', status: 'Completed' },
-  { id: 'Wishlist',      label: 'Wish',  icon: '💜', status: 'Wishlist' },
-  { id: 'Not Completed', label: 'Paused',icon: '⏸',  status: 'Not Completed' },
-  { id: 'Log',           label: 'Log',   icon: '📅', status: null },
-  { id: 'Stats',         label: 'Stats', icon: '📊', status: null },
+  { id: 'Completed',     label: 'Done',    icon: '✅', status: 'Completed' },
+  { id: 'Wishlist',      label: 'Wish',    icon: '💜', status: 'Wishlist' },
+  { id: 'Not Completed', label: 'Paused',  icon: '⏸',  status: 'Not Completed' },
+  { id: 'Log',           label: 'Log',     icon: '📅', status: null },
+  { id: 'Stats',         label: 'Stats',   icon: '📊', status: null },
 ]
 
 function LoadingSkeleton({ viewMode }) {
@@ -161,6 +161,7 @@ export default function App() {
       <header style={{
         background: 'var(--bg2)', borderBottom: '1px solid var(--border)',
         position: 'sticky', top: 0, zIndex: 100,
+        paddingTop: 'env(safe-area-inset-top)',
       }}>
         <div style={{ maxWidth: 1300, margin: '0 auto', padding: '0 14px' }}>
 
@@ -168,7 +169,7 @@ export default function App() {
           <div style={{
             display: 'flex', alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '10px 0 8px', gap: 8,
+            padding: '8px 0 6px', gap: 8,
           }}>
             {/* Brand */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
