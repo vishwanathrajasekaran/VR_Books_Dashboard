@@ -79,6 +79,24 @@ export default function App() {
   const { books, loading: booksLoading, error: booksError, refetch } = useBooks()
   const { log,   loading: logLoading,   error: logError,   refetch: refetchLog } = useReadingLog()
 
+  // ── PWA Install ──
+  const [installPrompt, setInstallPrompt] = useState(null)
+  const [showInstall,   setShowInstall]   = useState(false)
+
+  useEffect(() => {
+    const handler = e => { e.preventDefault(); setInstallPrompt(e); setShowInstall(true) }
+    window.addEventListener('beforeinstallprompt', handler)
+    return () => window.removeEventListener('beforeinstallprompt', handler)
+  }, [])
+
+  async function handleInstall() {
+    if (!installPrompt) return
+    installPrompt.prompt()
+    const { outcome } = await installPrompt.userChoice
+    if (outcome === 'accepted') setShowInstall(false)
+    setInstallPrompt(null)
+  }
+
   // ── Theme ──
   const [theme, setTheme] = useState(() => localStorage.getItem('vr-theme') || 'dark')
 
@@ -187,6 +205,23 @@ export default function App() {
               >
                 📝 Log Today
               </button>
+
+              {/* Install App button — only shows when browser supports PWA install */}
+              {showInstall && (
+                <button
+                  onClick={handleInstall}
+                  title="Install as App"
+                  style={{
+                    background: 'rgba(74,158,255,0.1)', border: '1px solid rgba(74,158,255,0.3)',
+                    borderRadius: 8, color: 'var(--blue)',
+                    padding: '8px 14px', fontSize: 12, fontWeight: 600,
+                    display: 'flex', alignItems: 'center', gap: 6,
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  📲 Install App
+                </button>
+              )}
 
               {/* Theme toggle */}
               <button
