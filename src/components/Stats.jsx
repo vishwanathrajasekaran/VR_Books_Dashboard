@@ -15,7 +15,7 @@ function parseYearMonth(ym) {
 
 function StatCard({ icon, label, value, accent, sub }) {
   return (
-    <div style={{
+    <div className="glass-card stat-card" style={{
       background: 'var(--card)', border: '1px solid var(--border)',
       borderRadius: 'var(--radius)', padding: '16px 18px',
       display: 'flex', flexDirection: 'column', gap: 4,
@@ -41,7 +41,7 @@ function SectionTitle({ children }) {
 
 function ChartBox({ title, children }) {
   return (
-    <div style={{
+    <div className="glass-card chart-box" style={{
       background: 'var(--card)', border: '1px solid var(--border)',
       borderRadius: 'var(--radius)', padding: '20px 22px', marginBottom: 14,
     }}>
@@ -197,7 +197,7 @@ export default function Stats({ books, log }) {
   }
 
   return (
-    <div style={{ paddingBottom: 40, animation: 'fadeIn 0.4s ease' }}>
+    <div className="special-view stats-view" style={{ paddingBottom: 40, animation: 'fadeIn 0.4s ease' }}>
 
       {/* ── Stat cards ── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 10, marginBottom: 20 }}>

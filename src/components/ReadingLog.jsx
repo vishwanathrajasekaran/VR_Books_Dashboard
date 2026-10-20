@@ -95,10 +95,10 @@ export default function ReadingLog({ log }) {
   }, [filtered])
 
   return (
-    <div style={{ paddingBottom: 40, animation: 'fadeIn 0.4s ease' }}>
+    <div className="special-view reading-log-view" style={{ paddingBottom: 40, animation: 'fadeIn 0.4s ease' }}>
 
       {/* Streak banner */}
-      <div style={{
+      <div className="glass-panel streak-banner" style={{
         background: 'linear-gradient(135deg, rgba(232,168,56,0.1), rgba(232,168,56,0.03))',
         border: '1px solid rgba(232,168,56,0.22)', borderRadius: 'var(--radius)',
         padding: '18px 24px', marginBottom: 20,
@@ -154,6 +154,7 @@ export default function ReadingLog({ log }) {
           fontSize: 15, color: 'var(--text3)', pointerEvents: 'none',
         }}>🔍</span>
         <input
+          className="glass-input"
           type="text"
           value={search}
           onChange={e => setSearch(e.target.value)}
@@ -203,7 +204,7 @@ export default function ReadingLog({ log }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {entries.map((entry, i) => (
-                <div key={i} style={{
+                <div className="glass-card reading-log-row" key={i} style={{
                   display: 'grid', gridTemplateColumns: '44px 1fr auto',
                   gap: 14, alignItems: 'center',
                   padding: '11px 16px', background: 'var(--card)',

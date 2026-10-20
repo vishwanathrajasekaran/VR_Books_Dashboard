@@ -17,6 +17,7 @@ export default function BookCard({ book, onClick }) {
   return (
     <div
       onClick={() => onClick(book)}
+      className="glass-card book-card"
       style={{
         background: 'var(--card)', border: '1px solid var(--border)',
         borderRadius: 'var(--radius)', overflow: 'hidden',
@@ -34,7 +35,7 @@ export default function BookCard({ book, onClick }) {
       }}
     >
       {/* Cover */}
-      <div style={{ position: 'relative', paddingBottom: '148%', background: 'var(--bg3)' }}>
+      <div className="book-cover" style={{ position: 'relative', paddingBottom: '148%', background: 'var(--bg3)' }}>
         <img
           src={imgSrc}
           alt={book.title}
@@ -50,7 +51,7 @@ export default function BookCard({ book, onClick }) {
           padding: '20px 6px 6px',
           display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
         }}>
-          <span style={{
+          <span className="card-overlay-pill" style={{
             fontSize: 9, fontWeight: 700, letterSpacing: '0.05em',
             color: cfg.color, background: 'rgba(0,0,0,0.7)',
             backdropFilter: 'blur(4px)',
@@ -59,7 +60,7 @@ export default function BookCard({ book, onClick }) {
           }}>
             {cfg.text}
           </span>
-          <span style={{
+          <span className="card-language-pill" style={{
             fontSize: 9, fontWeight: 600,
             background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)',
             color: '#e8ecf4', padding: '2px 5px', borderRadius: 4,
@@ -70,14 +71,14 @@ export default function BookCard({ book, onClick }) {
 
         {/* Progress bar for Reading */}
         {book.status === 'Reading' && (
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: 'rgba(0,0,0,0.5)' }}>
+          <div className="book-progress" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: 'rgba(0,0,0,0.5)' }}>
             <div style={{ height: '100%', width: `${book.progress}%`, background: '#4a9eff' }} />
           </div>
         )}
       </div>
 
       {/* Info — compact */}
-      <div style={{ padding: '8px 10px 10px' }}>
+      <div className="book-card-info" style={{ padding: '8px 10px 10px' }}>
         <div style={{
           fontSize: 12, fontWeight: 600, color: 'var(--text)', lineHeight: 1.3,
           marginBottom: 2, fontFamily: 'var(--font-display)',

@@ -10,6 +10,7 @@ export default function BookRow({ book, onClick }) {
   return (
     <div
       onClick={() => onClick(book)}
+      className="glass-card book-row"
       style={{
         display: 'grid', gridTemplateColumns: '52px 1fr auto',
         gap: 14, alignItems: 'center',
@@ -22,6 +23,7 @@ export default function BookRow({ book, onClick }) {
     >
       <img
         src={imgSrc} onError={() => setImgSrc(FALLBACK)} alt={book.title} loading="lazy"
+        className="book-row-cover"
         style={{ width: 52, height: 72, objectFit: 'cover', borderRadius: 6, border: '1px solid var(--border)' }}
       />
       <div>
