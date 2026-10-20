@@ -61,6 +61,7 @@ function PinScreen({ onSuccess, onClose }) {
   return (
     <div
       onClick={onClose}
+      className="modal-backdrop pin-backdrop"
       style={{
         position: 'fixed', inset: 0,
         background: 'rgba(0,0,0,0.88)', backdropFilter: 'blur(10px)',
@@ -70,6 +71,7 @@ function PinScreen({ onSuccess, onClose }) {
     >
       <div
         onClick={e => e.stopPropagation()}
+        className="glass-modal pin-card"
         style={{
           background: 'var(--bg2)', border: '1px solid var(--border)',
           borderRadius: 20, width: 320, overflow: 'hidden',
@@ -78,7 +80,7 @@ function PinScreen({ onSuccess, onClose }) {
         }}
       >
         {/* Header */}
-        <div style={{
+        <div className="modal-accent-header" style={{
           background: 'linear-gradient(135deg, rgba(232,168,56,0.12), rgba(232,168,56,0.04))',
           borderBottom: '1px solid var(--border)',
           padding: '22px 24px 18px',
@@ -152,7 +154,8 @@ function PinScreen({ onSuccess, onClose }) {
               key === '' ? (
                 <div key={i} />
               ) : (
-                <button
+                  <button
+                    className="glass-control keypad-button"
                   key={i}
                   onClick={() => key === '⌫' ? handleDelete() : handleKey(key)}
                   style={{
@@ -298,6 +301,7 @@ function LogFormInner({ books, log, onClose, onSuccess }) {
   return (
     <div
       onClick={onClose}
+      className="modal-backdrop log-backdrop"
       style={{
         position: 'fixed', inset: 0,
         background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)',
@@ -307,6 +311,7 @@ function LogFormInner({ books, log, onClose, onSuccess }) {
     >
       <div
         onClick={e => e.stopPropagation()}
+        className="glass-modal log-card"
         style={{
           background: 'var(--bg2)', border: '1px solid var(--border)',
           borderRadius: 16, maxWidth: 500, width: '100%',
@@ -315,7 +320,7 @@ function LogFormInner({ books, log, onClose, onSuccess }) {
         }}
       >
         {/* Header */}
-        <div style={{
+        <div className="modal-accent-header log-header" style={{
           background: 'linear-gradient(135deg, rgba(232,168,56,0.12), rgba(232,168,56,0.04))',
           borderBottom: '1px solid var(--border)',
           padding: '18px 24px',
@@ -352,7 +357,8 @@ function LogFormInner({ books, log, onClose, onSuccess }) {
             </label>
             <div style={{ display: 'flex', gap: 8 }}>
               {[true, false].map(val => (
-                <button
+                  <button
+                    className="glass-control choice-button"
                   key={String(val)}
                   onClick={() => setDidRead(val)}
                   style={{
@@ -387,7 +393,7 @@ function LogFormInner({ books, log, onClose, onSuccess }) {
                 const last = getLastBookmark(book.title)
                 const isSelected = selectedBook?.title === book.title
                 return (
-                  <div
+                    <div className={`glass-control book-option ${isSelected ? 'is-selected' : ''}`}
                     key={book.title}
                     onClick={() => selectBook(book)}
                     style={{
@@ -467,6 +473,7 @@ function LogFormInner({ books, log, onClose, onSuccess }) {
             )}
 
             <input
+              className="glass-input bookmark-input"
               type="number"
               value={bookmark}
               onChange={e => setBookmark(e.target.value)}
@@ -514,6 +521,7 @@ function LogFormInner({ books, log, onClose, onSuccess }) {
 
           {/* Submit */}
           <button
+            className="ambient-button submit-log-button"
             onClick={handleSubmit}
             disabled={submitting}
             style={{

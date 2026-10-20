@@ -155,24 +155,24 @@ export default function App() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
+    <div className="app-shell" style={{ minHeight: '100vh', background: 'var(--bg)' }}>
 
       {/* ── HEADER ── */}
-      <header style={{
+      <header className="glass-header app-header" style={{
         background: 'var(--bg2)', borderBottom: '1px solid var(--border)',
         position: 'sticky', top: 0, zIndex: 100,
         paddingTop: 'env(safe-area-inset-top)',
       }}>
-        <div style={{ maxWidth: 1300, margin: '0 auto', padding: '0 14px' }}>
+        <div className="app-container" style={{ maxWidth: 1300, margin: '0 auto', padding: '0 14px' }}>
 
           {/* Top bar — compact on mobile */}
-          <div style={{
+          <div className="app-topbar" style={{
             display: 'flex', alignItems: 'center',
             justifyContent: 'space-between',
             padding: '8px 0 6px', gap: 8,
           }}>
             {/* Brand */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+            <div className="brand-lockup" style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
               <img
                 src="/icons/icon-96.png" alt="VR Books"
                 style={{ width: 34, height: 34, borderRadius: 8, flexShrink: 0 }}
@@ -192,10 +192,11 @@ export default function App() {
             </div>
 
             {/* Action buttons — icon-only on mobile */}
-            <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
+            <div className="header-actions" style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
 
               {/* Log Today */}
               <button
+                className="ambient-button header-action-primary"
                 onClick={() => setShowLogForm(true)}
                 style={{
                   padding: '8px 12px',
@@ -213,6 +214,7 @@ export default function App() {
 
               {/* Theme toggle */}
               <button
+                className="glass-control header-action"
                 onClick={toggleTheme}
                 style={{
                   background: 'var(--bg3)', border: '1px solid var(--border)',
@@ -226,6 +228,7 @@ export default function App() {
 
               {/* Refresh */}
               <button
+                className="glass-control header-action"
                 onClick={() => { refetch(); refetchLog() }}
                 style={{
                   background: 'var(--bg3)', border: '1px solid var(--border)',
@@ -239,7 +242,7 @@ export default function App() {
 
               {/* Install */}
               {showInstall && (
-                <button onClick={handleInstall} style={{
+                <button className="glass-control header-action install-action" onClick={handleInstall} style={{
                   background: 'rgba(74,158,255,0.1)', border: '1px solid rgba(74,158,255,0.3)',
                   borderRadius: 8, color: 'var(--blue)',
                   width: 34, height: 34, fontSize: 16,
@@ -250,12 +253,13 @@ export default function App() {
           </div>
 
           {/* Tabs — scrollable, icon + short label */}
-          <div style={{
+          <div className="tab-strip" style={{
             display: 'flex', gap: 2, overflowX: 'auto',
             scrollbarWidth: 'none', msOverflowStyle: 'none',
           }}>
             {TABS.map(t => (
               <button
+                className={`glass-tab app-tab ${activeTab === t.id ? 'is-active' : ''}`}
                 key={t.id}
                 onClick={() => handleTabChange(t.id)}
                 style={{
@@ -287,11 +291,11 @@ export default function App() {
       </header>
 
       {/* ── MAIN ── */}
-      <main style={{ maxWidth: 1300, margin: '0 auto', padding: '14px' }}>
+      <main className="app-main" style={{ maxWidth: 1300, margin: '0 auto', padding: '14px' }}>
 
         {/* Success toast */}
         {successMsg && (
-          <div style={{
+          <div className="toast-success" style={{
             padding: '11px 14px', marginBottom: 12,
             background: 'rgba(76,175,130,0.1)', border: '1px solid rgba(76,175,130,0.25)',
             borderRadius: 'var(--radius-sm)', color: 'var(--green)',
@@ -308,12 +312,12 @@ export default function App() {
 
         {/* ── FILTERS (mobile-friendly) ── */}
         {!isSpecial && (
-          <div style={{ marginBottom: 12 }}>
+          <div className="filters-shell" style={{ marginBottom: 12 }}>
 
             {/* Search + filter toggle row */}
-            <div style={{ display: 'flex', gap: 8, marginBottom: showFilters ? 10 : 0 }}>
+            <div className="filter-toolbar" style={{ display: 'flex', gap: 8, marginBottom: showFilters ? 10 : 0 }}>
               {/* Search */}
-              <div style={{ position: 'relative', flex: 1 }}>
+              <div className="search-field" style={{ position: 'relative', flex: 1 }}>
                 <span style={{
                   position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)',
                   color: 'var(--text3)', fontSize: 13, pointerEvents: 'none',
@@ -321,7 +325,8 @@ export default function App() {
                 <input
                   type="text" value={search} onChange={e => setSearch(e.target.value)}
                   placeholder="Search books…"
-                  style={{
+                   className="glass-input"
+                   style={{
                     width: '100%', padding: '9px 10px 9px 32px',
                     background: 'var(--card)', border: '1px solid var(--border)',
                     borderRadius: 'var(--radius-sm)', color: 'var(--text)', fontSize: 13,
@@ -331,6 +336,7 @@ export default function App() {
 
               {/* Filter toggle button */}
               <button
+                className="glass-control filter-toggle"
                 onClick={() => setShowFilters(f => !f)}
                 style={{
                   padding: '9px 13px', borderRadius: 'var(--radius-sm)',
@@ -352,13 +358,13 @@ export default function App() {
               </button>
 
               {/* Grid/List toggle */}
-              <div style={{
+              <div className="view-toggle glass-control" style={{
                 display: 'flex', background: 'var(--card)',
                 border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)',
                 overflow: 'hidden', flexShrink: 0,
               }}>
                 {[['grid', '⊞'], ['list', '☰']].map(([mode, icon]) => (
-                  <button key={mode} onClick={() => setViewMode(mode)} style={{
+                  <button className={viewMode === mode ? 'is-active' : ''} key={mode} onClick={() => setViewMode(mode)} style={{
                     padding: '8px 11px', fontSize: 15,
                     background: viewMode === mode ? 'var(--bg3)' : 'transparent',
                     color:      viewMode === mode ? 'var(--text)' : 'var(--text3)',
@@ -369,34 +375,34 @@ export default function App() {
 
             {/* Expanded filters — shown when toggle is open */}
             {showFilters && (
-              <div style={{
+              <div className="glass-panel expanded-filters" style={{
                 display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8,
                 padding: '12px', background: 'var(--card)',
                 border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)',
                 animation: 'fadeIn 0.2s ease',
               }}>
-                <select value={filterGenre} onChange={e => setFilterGenre(e.target.value)} style={selectStyle}>
+                <select className="glass-control" value={filterGenre} onChange={e => setFilterGenre(e.target.value)} style={selectStyle}>
                   <option value="">All Genres</option>
                   {genres.map(g => <option key={g} value={g}>{g}</option>)}
                 </select>
 
-                <select value={filterLang} onChange={e => setFilterLang(e.target.value)} style={selectStyle}>
+                <select className="glass-control" value={filterLang} onChange={e => setFilterLang(e.target.value)} style={selectStyle}>
                   <option value="">All Languages</option>
                   <option value="English">English</option>
                   <option value="Tamil">Tamil</option>
                 </select>
 
-                <select value={filterYear} onChange={e => setFilterYear(e.target.value)} style={selectStyle}>
+                <select className="glass-control" value={filterYear} onChange={e => setFilterYear(e.target.value)} style={selectStyle}>
                   <option value="">All Years</option>
                   {years.map(y => <option key={y} value={y}>{y}</option>)}
                 </select>
 
-                <select value={filterFormat} onChange={e => setFilterFormat(e.target.value)} style={selectStyle}>
+                <select className="glass-control" value={filterFormat} onChange={e => setFilterFormat(e.target.value)} style={selectStyle}>
                   <option value="">All Formats</option>
                   {formats.map(f => <option key={f} value={f}>{f}</option>)}
                 </select>
 
-                <select value={filterRating} onChange={e => setFilterRating(e.target.value)} style={selectStyle}>
+                <select className="glass-control" value={filterRating} onChange={e => setFilterRating(e.target.value)} style={selectStyle}>
                   <option value="">All Ratings</option>
                   <option value="4.5">4.5+ ⭐</option>
                   <option value="4">4+ ⭐</option>
@@ -417,7 +423,7 @@ export default function App() {
 
         {/* Count */}
         {!isSpecial && (
-          <div style={{ fontSize: 11, color: 'var(--text3)', marginBottom: 12 }}>
+          <div className="results-caption" style={{ fontSize: 11, color: 'var(--text3)', marginBottom: 12 }}>
             Showing <strong style={{ color: 'var(--text2)' }}>{filtered.length}</strong> book{filtered.length !== 1 ? 's' : ''}
             {hasFilters && <span> (filtered)</span>}
           </div>
@@ -433,12 +439,12 @@ export default function App() {
         ) : activeTab === 'Log' ? (
           <ReadingLog log={log} books={books} />
         ) : filtered.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text3)' }}>
+          <div className="empty-state" style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text3)' }}>
             <div style={{ fontSize: 40, marginBottom: 10 }}>📚</div>
             <div style={{ fontSize: 14 }}>No books found</div>
           </div>
         ) : viewMode === 'grid' ? (
-          <div style={{
+          <div className="book-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
             gap: 12, animation: 'fadeIn 0.3s ease',
@@ -448,7 +454,7 @@ export default function App() {
             ))}
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, animation: 'fadeIn 0.3s ease' }}>
+          <div className="book-list" style={{ display: 'flex', flexDirection: 'column', gap: 8, animation: 'fadeIn 0.3s ease' }}>
             {filtered.map((book, i) => (
               <BookRow key={book.title + i} book={book} onClick={setSelectedBook} />
             ))}
@@ -465,7 +471,7 @@ export default function App() {
       )}
 
       {/* Footer */}
-      <footer style={{
+      <footer className="app-footer" style={{
         borderTop: '1px solid var(--border)', padding: '16px',
         textAlign: 'center', fontSize: 11, color: 'var(--text3)', marginTop: 32,
       }}>

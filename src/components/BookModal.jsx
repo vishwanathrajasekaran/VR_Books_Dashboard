@@ -41,6 +41,7 @@ export default function BookModal({ book, log, onClose }) {
   return (
     <div
       onClick={onClose}
+      className="modal-backdrop"
       style={{
         position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.82)',
         backdropFilter: 'blur(8px)', zIndex: 1000,
@@ -50,6 +51,7 @@ export default function BookModal({ book, log, onClose }) {
     >
       <div
         onClick={e => e.stopPropagation()}
+        className="glass-modal modal-card"
         style={{
           background: 'var(--bg2)', border: '1px solid var(--border)',
           borderRadius: 16, maxWidth: 700, width: '100%',
@@ -58,7 +60,7 @@ export default function BookModal({ book, log, onClose }) {
         }}
       >
         {/* Header */}
-        <div style={{
+          <div className="modal-hero" style={{
           display: 'grid', gridTemplateColumns: '180px 1fr',
           gap: 24, padding: 26, borderBottom: '1px solid var(--border)',
           position: 'relative',
@@ -76,6 +78,7 @@ export default function BookModal({ book, log, onClose }) {
 
           <img
             src={imgSrc} onError={() => setImgSrc(FALLBACK)} alt={book.title}
+            className="modal-cover"
             style={{ width: '100%', borderRadius: 10, border: '1px solid var(--border)' }}
           />
 
@@ -99,7 +102,7 @@ export default function BookModal({ book, log, onClose }) {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
               {statItems.map(({ label, value }) => (
-                <div key={label} style={{
+                <div className="modal-stat" key={label} style={{
                   background: 'var(--bg3)', borderRadius: 8, padding: '7px 11px',
                   border: '1px solid var(--border)',
                 }}>
@@ -114,7 +117,7 @@ export default function BookModal({ book, log, onClose }) {
 
         {/* Genres */}
         {genres.length > 0 && (
-          <div style={{ padding: '14px 26px', borderBottom: '1px solid var(--border)',
+          <div className="modal-chip-row" style={{ padding: '14px 26px', borderBottom: '1px solid var(--border)',
             display: 'flex', flexWrap: 'wrap', gap: 6 }}>
             {genres.map(g => (
               <span key={g} style={{
@@ -150,7 +153,7 @@ export default function BookModal({ book, log, onClose }) {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 5, maxHeight: 220, overflow: 'auto' }}>
               {bookLog.map((entry, i) => (
-                <div key={i} style={{
+                <div className="modal-log-row" key={i} style={{
                   display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                   padding: '7px 12px', background: 'var(--bg3)',
                   borderRadius: 8, border: '1px solid var(--border)', fontSize: 12,
